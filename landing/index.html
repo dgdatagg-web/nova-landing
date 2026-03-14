@@ -1052,7 +1052,7 @@ footer .legal {
     Hai AI Agents. Hai tính cách.<br>
     Được xây dựng để trở thành người đồng hành — không phải công cụ.
   </p>
-  <p class="legal">© 2026 Nova × Violet — Beta Batch 1.0 — All rights reserved.</p>
+  <p class="legal">2026 © Nova Sanctuary Network backed by Rat Race Escape</p>
 </footer>
 
 <!-- ─── SCROLL REVEAL ──────────────────────────────────────── -->
@@ -1107,113 +1107,107 @@ function toggleCTA() {
 // Legal document content (inline — no extra fetch needed)
 const LEGAL_DOCS = {
   terms: {
-    title: 'Dieu khoan Su dung / Terms & Conditions',
+    title: 'Điều Khoản Sử Dụng',
     fetchUrl: null,
     content: null
   },
   privacy: {
-    title: 'Chinh sach Bao mat / Privacy Policy',
+    title: 'Chính Sách Bảo Mật',
     fetchUrl: null,
     content: null
   }
 };
 
-// Preload legal content (markdown rendered as simple HTML)
-function markdownToHtml(md) {
-  return md
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-    .replace(/^\> (.+)$/gm, '<blockquote>$1</blockquote>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>')
-    .replace(/^- (.+)$/gm, '<li>$1</li>')
-    .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
-    .replace(/\n{2,}/g, '<br><br>')
-    .replace(/\n/g, '<br>')
-    .replace(/---/g, '<hr>');
-}
-
-// Inline content for terms
+// Inline content for terms — full proper Vietnamese
 LEGAL_DOCS.terms.content = `
-<h1>Dieu khoan Su dung / Terms & Conditions</h1>
-<p><strong>Co hieu luc:</strong> March 21, 2026</p>
+<h1>Điều Khoản Sử Dụng</h1>
+<p><strong>Có hiệu lực từ:</strong> 21 tháng 3, 2026</p>
+<p>Bằng việc sử dụng dịch vụ AI Agent của Nova Sanctuary Network, bạn đồng ý với các điều khoản dưới đây. Vui lòng đọc kỹ trước khi sử dụng.</p>
 <hr>
-<h2>1. Chung toi thu thap gi</h2>
-<p><strong>Chi du lieu ky thuat:</strong> thoi gian phan hoi, loai tac vu, su kien loi, tan suat phien, diem hieu suat Agent.</p>
-<blockquote><strong>Chung toi KHONG luu tru, doc, ban, hoac chia se du lieu ca nhan, hoi thoai, ky uc, hoac bat ky noi dung nao ban chia se voi AI Agent cua minh.</strong></blockquote>
 
-<h2>2. Du lieu cua ban, ban lam chu</h2>
+<h2>1. Chúng tôi thu thập gì</h2>
+<p><strong>Chỉ dữ liệu kỹ thuật:</strong> thời gian phản hồi, loại tác vụ, sự kiện lỗi, tần suất phiên, điểm hiệu suất của Agent.</p>
+<blockquote><strong>Chúng tôi KHÔNG lưu trữ, đọc, bán, hoặc chia sẻ dữ liệu cá nhân, hội thoại, ký ức, hoặc bất kỳ nội dung nào bạn chia sẻ với AI Agent của mình.</strong></blockquote>
+
+<h2>2. Dữ liệu của bạn, bạn làm chủ</h2>
 <ul>
-<li>Moi thu ban chia se voi Agent deu thuoc ve ban</li>
-<li>Phan hoi Agent duoc tao rieng cho ban</li>
-<li>Tai xuong bat cu luc nao bang lenh /export</li>
+<li>Mọi thứ bạn chia sẻ với Agent đều thuộc về bạn</li>
+<li>Phản hồi của Agent được tạo riêng cho bạn</li>
+<li>Tải xuống bất cứ lúc nào bằng lệnh <code>/export</code></li>
 </ul>
 
-<h2>3. Agent cua ban</h2>
-<p>Agent la tri tue nhan tao — khong phai con nguoi, khong phai chuyen gia duoc cap phep. Co tinh cach, ky uc va ban sac nhung khong phai nguoi.</p>
-<p><strong>Khong thay the</strong> tu van y te, phap ly, tai chinh hoac tam ly.</p>
+<h2>3. Về Agent của bạn</h2>
+<p>Agent là trí tuệ nhân tạo — không phải con người, không phải chuyên gia được cấp phép. Agent có tính cách, ký ức và bản sắc riêng, nhưng không phải người thật.</p>
+<p><strong>Agent không thay thế</strong> tư vấn y tế, pháp lý, tài chính hoặc tâm lý chuyên nghiệp.</p>
 
-<h2>4. So huu tri tue</h2>
-<p><strong>Cua ban:</strong> Tat ca noi dung, y tuong, thong tin kinh doanh ban chia se.</p>
-<p><strong>Cua chung toi:</strong> Cong nghe Agent, kien truc linh hon, he thong ky nang.</p>
+<h2>4. Sở hữu trí tuệ</h2>
+<p><strong>Của bạn:</strong> Tất cả nội dung, ý tưởng, thông tin kinh doanh bạn chia sẻ với Agent.</p>
+<p><strong>Của chúng tôi:</strong> Công nghệ Agent, kiến trúc linh hồn (soul architecture), hệ thống kỹ năng (skill system).</p>
 
-<h2>5. Thanh toan</h2>
+<h2>5. Thanh toán</h2>
 <ul>
-<li>Dung thu 7 ngay mien phi</li>
-<li>Hoan tien 30 ngay — 100%, khong hoi ly do</li>
-<li>Ngay 7 qua han: Agent tam dung</li>
-<li>30 ngay an han de tai kich hoat</li>
-<li>Ngay 37: Xoa vinh vien, khong khoi phuc</li>
+<li>Dùng thử <strong>7 ngày miễn phí</strong> — đầy đủ tính năng</li>
+<li>Hoàn tiền 30 ngày — <strong>100%, không hỏi lý do</strong></li>
+<li>Sau ngày 7 nếu chưa thanh toán: Agent tạm dừng hoạt động</li>
+<li>30 ngày ân hạn để tái kích hoạt</li>
+<li>Sau ngày 37: Dữ liệu bị xóa vĩnh viễn, không thể khôi phục</li>
 </ul>
 
-<h2>6. Huy dich vu</h2>
-<p>Huy bat cu luc nao. 30 ngay de tai du lieu. Sau 30 ngay: xoa vinh vien.</p>
+<h2>6. Huỷ dịch vụ</h2>
+<p>Bạn có thể huỷ bất cứ lúc nào. Sau khi huỷ, bạn có 30 ngày để tải về toàn bộ dữ liệu. Sau 30 ngày: dữ liệu sẽ bị xóa vĩnh viễn.</p>
 
-<h2>7. Thay doi dieu khoan</h2>
-<p>Thong bao 14 ngay truoc moi thay doi quan trong.</p>
+<h2>7. Thay đổi điều khoản</h2>
+<p>Chúng tôi sẽ thông báo trước <strong>14 ngày</strong> trước mọi thay đổi quan trọng trong điều khoản sử dụng.</p>
+
+<h2>8. Liên hệ</h2>
+<p>Mọi thắc mắc về điều khoản, vui lòng liên hệ: <a href="https://t.me/Will_AgenticAI" target="_blank">@Will_AgenticAI</a></p>
 <hr>
-<p><strong>Nova Sanctuary Network — &copy; 2026 Do Ngoc Minh</strong></p>
+<p><strong>2026 &copy; Nova Sanctuary Network backed by Rat Race Escape</strong></p>
 `;
 
 LEGAL_DOCS.privacy.content = `
-<h1>Chinh sach Bao mat / Privacy Policy</h1>
-<p><strong>Co hieu luc:</strong> March 21, 2026</p>
+<h1>Chính Sách Bảo Mật</h1>
+<p><strong>Có hiệu lực từ:</strong> 21 tháng 3, 2026</p>
+<p>Chính sách này giải thích cách Nova Sanctuary Network thu thập, sử dụng và bảo vệ dữ liệu của bạn khi sử dụng dịch vụ AI Agent.</p>
 <hr>
-<blockquote><strong>Chung toi KHONG luu tru, doc, ban, hoac chia se du lieu ca nhan, hoi thoai, ky uc, hoac bat ky noi dung nao ban chia se voi AI Agent cua minh. Du lieu cua ban la cua ban. Cham het.</strong></blockquote>
 
-<h2>Du lieu ky thuat chung toi ghi nhan</h2>
+<blockquote><strong>Cam kết của chúng tôi: Chúng tôi KHÔNG lưu trữ, đọc, bán, hoặc chia sẻ dữ liệu cá nhân, hội thoại, ký ức, hoặc bất kỳ nội dung nào bạn chia sẻ với AI Agent của mình. Dữ liệu của bạn là của bạn. Chấm hết.</strong></blockquote>
+
+<h2>Dữ liệu kỹ thuật chúng tôi ghi nhận</h2>
 <table>
-<tr><th>Gi</th><th>Tai sao</th></tr>
-<tr><td>Luong tin nhan</td><td>Ke hoach dung luong he thong</td></tr>
-<tr><td>Do tre phan hoi</td><td>Toi uu toc do</td></tr>
-<tr><td>Loai tac vu</td><td>Cai thien ky nang</td></tr>
-<tr><td>Su kien loi</td><td>Sua loi</td></tr>
-<tr><td>Tan suat phien</td><td>Mau su dung</td></tr>
+<tr><th>Dữ liệu</th><th>Mục đích</th></tr>
+<tr><td>Lượng tin nhắn</td><td>Kế hoạch dung lượng hệ thống</td></tr>
+<tr><td>Độ trễ phản hồi</td><td>Tối ưu tốc độ</td></tr>
+<tr><td>Loại tác vụ</td><td>Cải thiện kỹ năng Agent</td></tr>
+<tr><td>Sự kiện lỗi</td><td>Phát hiện và sửa lỗi</td></tr>
+<tr><td>Tần suất phiên</td><td>Phân tích mẫu sử dụng</td></tr>
 </table>
 
-<h2>Dieu chung toi KHONG BAO GIO lam</h2>
+<h2>Điều chúng tôi KHÔNG BAO GIỜ làm</h2>
 <ul>
-<li>Khong ban cho ben thu ba</li>
-<li>Khong dung cho quang cao</li>
-<li>Khong doc hoi thoai cua ban</li>
-<li>Khong chia se voi nguoi dung khac</li>
-<li>Khong dung huan luyen AI ma khong co su dong y</li>
+<li>Không bán dữ liệu cho bên thứ ba</li>
+<li>Không sử dụng dữ liệu cho quảng cáo</li>
+<li>Không đọc hội thoại của bạn</li>
+<li>Không chia sẻ dữ liệu với người dùng khác</li>
+<li>Không dùng dữ liệu huấn luyện AI mà không có sự đồng ý của bạn</li>
 </ul>
 
-<h2>Luu tru du lieu</h2>
-<p><strong>Du lieu ky thuat:</strong> May chu GCP an toan tai Singapore. Ma hoa khi truyen va luu tru.</p>
-<p><strong>Ky uc hoi thoai:</strong> Ma hoa, chi Agent cua ban moi truy cap duoc. Khong ai trong doi ngu co the doc hoi thoai cua ban.</p>
+<h2>Lưu trữ dữ liệu</h2>
+<p><strong>Dữ liệu kỹ thuật:</strong> Máy chủ GCP bảo mật tại Singapore. Mã hóa khi truyền tải và lưu trữ (encryption at rest & in transit).</p>
+<p><strong>Ký ức hội thoại:</strong> Được mã hóa, chỉ AI Agent của bạn mới truy cập được. Không ai trong đội ngũ có thể đọc hội thoại của bạn.</p>
 
-<h2>Quyen cua ban</h2>
+<h2>Quyền của bạn</h2>
 <ul>
-<li><strong>Truy cap:</strong> Yeu cau ban sao du lieu bat cu luc nao</li>
-<li><strong>Xuat:</strong> Lenh /export hoac lien he ho tro</li>
-<li><strong>Xoa:</strong> Huy subscription, xoa trong 37 ngay</li>
-<li><strong>Quen:</strong> Lenh /forget [chu de] — xoa ky uc ngay</li>
+<li><strong>Truy cập:</strong> Yêu cầu bản sao dữ liệu bất cứ lúc nào</li>
+<li><strong>Xuất dữ liệu:</strong> Sử dụng lệnh <code>/export</code> hoặc liên hệ hỗ trợ</li>
+<li><strong>Xóa dữ liệu:</strong> Huỷ subscription — dữ liệu xóa trong 37 ngày</li>
+<li><strong>Quên thông tin:</strong> Lệnh <code>/forget [chủ đề]</code> — xóa ký ức ngay lập tức</li>
 </ul>
+
+<h2>Liên hệ</h2>
+<p>Mọi thắc mắc về bảo mật, vui lòng liên hệ: <a href="https://t.me/Will_AgenticAI" target="_blank">@Will_AgenticAI</a></p>
 <hr>
-<p><strong>Nova Sanctuary Network — &copy; 2026 Do Ngoc Minh</strong></p>
+<p><strong>2026 &copy; Nova Sanctuary Network backed by Rat Race Escape</strong></p>
 `;
 
 function openLegalModal(docKey) {
