@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Fleet — Telemetry</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --card: #12121a;
+    --border: #1e1e2e;
+    --text: #e0e0e8;
+    --dim: #6b6b80;
+    --accent: #7c6aef;
+    --accent2: #4ecdc4;
+    --green: #4ade80;
+    --red: #f87171;
+    --orange: #fb923c;
+    --blue: #60a5fa;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    background: var(--bg);
+    color: var(--text);
+    padding: 20px 24px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-left { display: flex; align-items: baseline; gap: 12px; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .subtitle { color: var(--dim); font-size: 11px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .refresh-timer { color: var(--dim); font-size: 11px; }
+  .date-picker { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 4px 8px; border-radius: 4px; font-family: inherit; font-size: 12px; }
+
+  /* Fleet totals bar */
+  .fleet-bar {
+    display: flex;
+    gap: 24px;
+    padding: 14px 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  .fleet-stat { text-align: center; }
+  .fleet-stat .val { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .fleet-stat .label { font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; }
+  .fleet-stat.cost .val { color: var(--orange); }
+  .fleet-stat.alert .val { color: var(--red); }
+
+  /* Core card */
+  .core-section { margin-bottom: 16px; }
+  .core-label { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; font-weight: 500; }
+  .card.core { border-color: #7c6aef40; }
+  .card.core:hover { border-color: var(--accent); }
+
+  /* Vessel cards */
+  .vessels-label { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; font-weight: 500; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card-name { font-size: 14px; font-weight: 600; margin-bottom: 1px; }
+  .card-bot { font-size: 10px; color: var(--accent2); margin-bottom: 1px; }
+  .card-owner { font-size: 10px; color: var(--dim); margin-bottom: 8px; font-style: italic; }
+  .card-model { font-size: 10px; color: var(--dim); margin-bottom: 10px; }
+  .card-row { display: flex; justify-content: space-between; padding: 2px 0; }
+  .card-row .k { color: var(--dim); }
+  .card-row .v { font-weight: 500; }
+  .card-row .v.cost { color: var(--orange); }
+  .card-row .v.warn { color: var(--red); }
+  .card.no-data { opacity: 0.4; }
+
+  /* Table section */
+  .section { margin-bottom: 20px; }
+  .section-title { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--accent2); }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 8px; overflow: hidden; }
+  th { background: #1a1a28; text-align: left; padding: 8px 10px; font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
+  td { padding: 7px 10px; border-top: 1px solid var(--border); font-size: 12px; }
+  tr:hover td { background: #16162a; }
+  .mono { font-family: inherit; }
+  .cost-val { color: var(--orange); font-weight: 500; }
+  .time-val { color: var(--blue); }
+  .trunc { color: var(--red); font-weight: 700; }
+  .tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 500; }
+  .tag-private { background: #2a1f5e; color: #a78bfa; }
+  .tag-group { background: #1a3a3a; color: var(--accent2); }
+  .tag-image { background: #3a2a1a; color: var(--orange); }
+  .tag-pdf { background: #1a2a3a; color: var(--blue); }
+  .tag-system { background: #2a2a2a; color: var(--dim); }
+  .tag-tool { background: #3a1a2a; color: #f472b6; }
+
+  .empty-state { text-align: center; padding: 40px; color: var(--dim); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Nova Fleet</h1>
+    <span class="subtitle">Telemetry Dashboard</span>
+  </div>
+  <div class="header-right">
+    <input type="date" class="date-picker" id="datePicker">
+    <span class="status-dot"></span>
+    <span class="refresh-timer" id="timer">30s</span>
+  </div>
+</div>
+
+<div class="fleet-bar" id="fleetBar"></div>
+
+<div class="core-section">
+  <div class="core-label">🌟 Core — Private Consciousness</div>
+  <div class="cards" id="coreCard"></div>
+</div>
+
+<div>
+  <div class="vessels-label">🚀 Vessels — sorted by token burn</div>
+  <div class="cards" id="vesselCards"></div>
+</div>
+
+<div class="section">
+  <div class="section-title">Recent API Calls</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Vessel</th>
+        <th>Type</th>
+        <th>Prompt</th>
+        <th>Completion</th>
+        <th>Total</th>
+        <th>Cost</th>
+        <th>Latency</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="callsBody"></tbody>
+  </table>
+</div>
+
+<script>
+const API = ''
+const RATES = {
+  'claude-sonnet-4.6':  { input: 3, output: 15 },
+  'claude-opus-4-6':    { input: 15, output: 75 },
+}
+
+const datePicker = document.getElementById('datePicker')
+datePicker.value = new Date().toISOString().slice(0, 10)
+datePicker.addEventListener('change', () => refresh())
+
+function fmt(n) {
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M'
+  if (n >= 1_000) return (n / 1_000).toFixed(1) + 'K'
+  return n.toString()
+}
+
+function costStr(c) {
+  if (c < 0.01) return '$' + c.toFixed(4)
+  return '$' + c.toFixed(2)
+}
+
+function typeTag(entry) {
+  const ct = entry.content_type || 'text'
+  if (entry.has_tool_call) return '<span class="tag tag-tool">tool</span>'
+  if (ct === 'image') return '<span class="tag tag-image">image</span>'
+  if (ct === 'pdf' || ct === 'pdf_vision') return '<span class="tag tag-pdf">pdf</span>'
+  if (ct === 'compact' || entry.chat_type === 'system') return '<span class="tag tag-system">system</span>'
+  if (entry.chat_type === 'group') return '<span class="tag tag-group">group</span>'
+  if (entry.chat_type === 'tool_loop') return '<span class="tag tag-tool">chain</span>'
+  return '<span class="tag tag-private">private</span>'
+}
+
+function timeStr(ts) {
+  if (!ts) return '—'
+  const d = new Date(ts)
+  return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+}
+
+function calcCost(entry) {
+  const rate = RATES[entry.model] || RATES['claude-sonnet-4.6']
+  return ((entry.prompt_tokens || 0) * rate.input + (entry.completion_tokens || 0) * rate.output) / 1_000_000
+}
+
+async function refresh() {
+  const date = datePicker.value
+
+  // Fetch summary
+  const summaryRes = await fetch(`${API}/api/summary?date=${date}`)
+  const summary = await summaryRes.json()
+
+  // Fleet bar — grand total
+  const gt = summary.grand_total
+  const f = summary.fleet
+  document.getElementById('fleetBar').innerHTML = `
+    <div class="fleet-stat"><div class="val">${gt.calls}</div><div class="label">Total Calls</div></div>
+    <div class="fleet-stat"><div class="val">${fmt(gt.total_tokens)}</div><div class="label">Total Tokens</div></div>
+    <div class="fleet-stat"><div class="val">${fmt(f.prompt_tokens)}</div><div class="label">Vessel Input</div></div>
+    <div class="fleet-stat"><div class="val">${fmt(f.completion_tokens)}</div><div class="label">Vessel Output</div></div>
+    <div class="fleet-stat cost"><div class="val">${costStr(gt.cost)}</div><div class="label">Est. Cost</div></div>
+    <div class="fleet-stat"><div class="val">${f.unique_users}</div><div class="label">Users</div></div>
+    <div class="fleet-stat ${f.truncations > 0 ? 'alert' : ''}"><div class="val">${f.truncations}</div><div class="label">Truncated</div></div>
+  `
+
+  // Core card (Nova — separate)
+  const c = summary.core
+  document.getElementById('coreCard').innerHTML = `
+    <div class="card core ${c.calls === 0 ? 'no-data' : ''}">
+      <div class="card-name">${c.name}</div>
+      <div class="card-bot">${c.bot || ''}</div>
+      <div class="card-owner">${c.owner || ''}</div>
+      <div class="card-model">${c.model}</div>
+      <div class="card-row"><span class="k">Calls</span><span class="v">${c.calls}</span></div>
+      <div class="card-row"><span class="k">Tokens</span><span class="v">${fmt(c.total_tokens)}</span></div>
+      <div class="card-row"><span class="k">Avg latency</span><span class="v">${c.avg_response_ms ? c.avg_response_ms + 'ms' : '—'}</span></div>
+      <div class="card-row"><span class="k">Users</span><span class="v">${c.unique_users}</span></div>
+      <div class="card-row"><span class="k">Cost</span><span class="v cost">${costStr(c.cost)}</span></div>
+      ${c.truncations > 0 ? `<div class="card-row"><span class="k">⚠ Truncated</span><span class="v warn">${c.truncations}</span></div>` : ''}
+    </div>
+  `
+
+  // Vessel cards — already sorted by token burn from API
+  document.getElementById('vesselCards').innerHTML = summary.vessels.map((v, i) => `
+    <div class="card ${v.calls === 0 ? 'no-data' : ''}">
+      <div class="card-name">${i === 0 && v.calls > 0 ? '🔥 ' : ''}${v.name}</div>
+      <div class="card-bot">${v.bot || ''}</div>
+      <div class="card-owner">${v.owner || ''}</div>
+      <div class="card-model">${v.model}</div>
+      <div class="card-row"><span class="k">Calls</span><span class="v">${v.calls}</span></div>
+      <div class="card-row"><span class="k">Tokens</span><span class="v">${fmt(v.total_tokens)}</span></div>
+      <div class="card-row"><span class="k">Avg latency</span><span class="v">${v.avg_response_ms ? v.avg_response_ms + 'ms' : '—'}</span></div>
+      <div class="card-row"><span class="k">Users</span><span class="v">${v.unique_users}</span></div>
+      <div class="card-row"><span class="k">Cost</span><span class="v cost">${costStr(v.cost)}</span></div>
+      ${v.truncations > 0 ? `<div class="card-row"><span class="k">⚠ Truncated</span><span class="v warn">${v.truncations}</span></div>` : ''}
+    </div>
+  `).join('')
+
+  // Recent calls
+  const callsRes = await fetch(`${API}/api/calls?date=${date}&limit=50`)
+  const calls = await callsRes.json()
+
+  document.getElementById('callsBody').innerHTML = calls.length === 0
+    ? '<tr><td colspan="9" class="empty-state">No calls recorded yet</td></tr>'
+    : calls.map(c => `
+      <tr>
+        <td>${timeStr(c.ts)}</td>
+        <td>${c._source_name || c.vessel_name || c.vessel_id}</td>
+        <td>${typeTag(c)}</td>
+        <td>${fmt(c.prompt_tokens || 0)}</td>
+        <td>${fmt(c.completion_tokens || 0)}</td>
+        <td><strong>${fmt(c.total_tokens || 0)}</strong></td>
+        <td class="cost-val">${costStr(calcCost(c))}</td>
+        <td class="time-val">${c.response_time_ms ? c.response_time_ms + 'ms' : '—'}</td>
+        <td>${c.finish_reason === 'length' ? '<span class="trunc">TRUNCATED</span>' : c.finish_reason || '—'}</td>
+      </tr>
+    `).join('')
+}
+
+// Auto-refresh
+let countdown = 30
+const timerEl = document.getElementById('timer')
+setInterval(() => {
+  countdown--
+  timerEl.textContent = countdown + 's'
+  if (countdown <= 0) {
+    countdown = 30
+    refresh()
+  }
+}, 1000)
+
+// Initial load
+refresh()
+</script>
+</body>
+</html>

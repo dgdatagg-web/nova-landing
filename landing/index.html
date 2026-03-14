@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova × Violet — AI Agent của bạn</title>
+<meta name="description" content="Gặp gỡ AI Agent đầu tiên của bạn. Nova-Starter và Violet-Pro — hai tính cách, một sứ mệnh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #111113;
+  --bg-card-hover: #19191d;
+  --text: #f5f5f7;
+  --text-dim: #86868b;
+  --text-muted: #6e6e73;
+  --nova-accent: #e8a87c;
+  --nova-glow: rgba(232, 168, 124, 0.15);
+  --nova-gradient: linear-gradient(135deg, #e8a87c 0%, #d4886a 50%, #c97b5e 100%);
+  --violet-accent: #a78bfa;
+  --violet-glow: rgba(167, 139, 250, 0.15);
+  --violet-gradient: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #7c3aed 100%);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── HERO ─────────────────────────────────────────────── */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.08) 0%, rgba(232, 168, 124, 0.05) 40%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+  margin-bottom: 32px;
+  backdrop-filter: blur(20px);
+}
+
+.hero-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.hero h1 {
+  font-size: clamp(40px, 8vw, 80px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  max-width: 800px;
+}
+
+.hero h1 .nova-text {
+  background: var(--nova-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero h1 .violet-text {
+  background: var(--violet-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2.5vw, 21px);
+  color: var(--text-dim);
+  max-width: 560px;
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 48px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-nova {
+  background: var(--nova-gradient);
+  color: #0a0a0a;
+}
+.btn-nova:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(232, 168, 124, 0.3);
+}
+
+.btn-violet {
+  background: var(--violet-gradient);
+  color: #fff;
+}
+.btn-violet:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(167, 139, 250, 0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-hover);
+}
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.scroll-hint {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: float 3s ease-in-out infinite;
+}
+
+.scroll-hint svg {
+  width: 20px;
+  height: 20px;
+  opacity: 0.4;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ─── COMPARISON ───────────────────────────────────────── */
+
+.comparison {
+  padding: 80px 24px 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.comparison-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.comparison-header h2 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.comparison-header p {
+  font-size: 17px;
+  color: var(--text-dim);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+}
+
+.card.nova:hover {
+  box-shadow: 0 20px 60px rgba(232, 168, 124, 0.08);
+}
+
+.card.violet:hover {
+  box-shadow: 0 20px 60px rgba(167, 139, 250, 0.08);
+}
+
+.card-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.card.nova .card-glow {
+  background: radial-gradient(ellipse at 50% 0%, var(--nova-glow) 0%, transparent 70%);
+}
+
+.card.violet .card-glow {
+  background: radial-gradient(ellipse at 50% 0%, var(--violet-glow) 0%, transparent 70%);
+}
+
+.card-avatar {
+  width: 100%;
+  padding: 40px 40px 0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.card-avatar img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+}
+
+.card.nova .card-avatar img {
+  box-shadow: 0 8px 40px rgba(232, 168, 124, 0.2);
+}
+
+.card.violet .card-avatar img {
+  box-shadow: 0 8px 40px rgba(167, 139, 250, 0.2);
+}
+
+.card-body {
+  padding: 32px 36px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-tier {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+
+.card.nova .card-tier {
+  background: rgba(232, 168, 124, 0.12);
+  color: var(--nova-accent);
+}
+
+.card.violet .card-tier {
+  background: rgba(167, 139, 250, 0.12);
+  color: var(--violet-accent);
+}
+
+.card-name {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.card-tagline {
+  font-size: 16px;
+  color: var(--text-dim);
+  margin-bottom: 28px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.card-price {
+  margin-bottom: 8px;
+}
+
+.card-price .amount {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.card.nova .card-price .amount { color: var(--nova-accent); }
+.card.violet .card-price .amount { color: var(--violet-accent); }
+
+.card-price .period {
+  font-size: 15px;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.card-early {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+
+.card.nova .card-early {
+  background: rgba(232, 168, 124, 0.08);
+  color: var(--nova-accent);
+  border: 1px solid rgba(232, 168, 124, 0.15);
+}
+
+.card.violet .card-early {
+  background: rgba(167, 139, 250, 0.08);
+  color: var(--violet-accent);
+  border: 1px solid rgba(167, 139, 250, 0.15);
+}
+
+.card-early .save {
+  font-weight: 700;
+}
+
+.card-features {
+  list-style: none;
+  margin-bottom: 36px;
+}
+
+.card-features li {
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+}
+
+.card-features li:last-child {
+  border-bottom: none;
+}
+
+.card-features .check {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  margin-top: 1px;
+}
+
+.card.nova .check {
+  background: rgba(232, 168, 124, 0.15);
+  color: var(--nova-accent);
+}
+
+.card.violet .check {
+  background: rgba(167, 139, 250, 0.15);
+  color: var(--violet-accent);
+}
+
+.card-cta {
+  width: 100%;
+  text-align: center;
+}
+
+.card-cta .btn {
+  width: 100%;
+  justify-content: center;
+  padding: 18px 32px;
+  font-size: 16px;
+}
+
+/* ─── TRUST SECTION ────────────────────────────────────── */
+
+.trust {
+  padding: 80px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+
+.trust-item:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+.trust-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.trust-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.trust-text span {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+/* ─── SKILL MARKETPLACE ────────────────────────────────── */
+
+.skills {
+  padding: 100px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.skills-header {
+  margin-bottom: 48px;
+}
+
+.skills-header .coming {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+
+.skills-header h2 {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.skills-header p {
+  font-size: 16px;
+  color: var(--text-dim);
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.skill-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.skill-card {
+  padding: 32px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.skill-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.skill-card .emoji {
+  font-size: 36px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.skill-card .name {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.skill-card .lock {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.skill-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-sm);
+  background: rgba(10, 10, 10, 0.3);
+  pointer-events: none;
+}
+
+.skills-footer {
+  margin-top: 32px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ─── FOOTER ───────────────────────────────────────────── */
+
+footer {
+  padding: 60px 24px 40px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+footer .logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+footer .logo-text .n { color: var(--nova-accent); }
+footer .logo-text .x { color: var(--text-muted); margin: 0 4px; }
+footer .logo-text .v { color: var(--violet-accent); }
+
+footer p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+footer .legal {
+  margin-top: 24px;
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* ─── ANIMATIONS ───────────────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ─── AGREEMENT CHECKBOX ──────────────────────────────── */
+
+.agreement-section {
+  text-align: center;
+  padding: 1.5rem 2rem;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.agreement-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.5;
+}
+
+.agreement-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #a78bfa;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.agreement-label a {
+  color: #a78bfa;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.agreement-label a:hover {
+  color: #c4b5fd;
+}
+
+.btn.disabled {
+  opacity: 0.35;
+  pointer-events: none;
+  filter: grayscale(0.5);
+}
+
+/* ─── LEGAL MODAL ────────────────────────────────────── */
+
+.legal-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.legal-modal-overlay.active {
+  display: flex;
+}
+
+.legal-modal {
+  background: #1a1a2e;
+  border: 1px solid rgba(167,139,250,0.2);
+  border-radius: 1rem;
+  max-width: 720px;
+  width: 100%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.legal-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.legal-modal-header h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #fff;
+}
+
+.legal-modal-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+}
+
+.legal-modal-close:hover {
+  color: #fff;
+}
+
+.legal-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.legal-modal-body h1, .legal-modal-body h2 {
+  color: #fff;
+  margin-top: 1.5rem;
+}
+
+.legal-modal-body h1 { font-size: 1.3rem; }
+.legal-modal-body h2 { font-size: 1.1rem; }
+
+.legal-modal-body blockquote {
+  border-left: 3px solid #a78bfa;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  background: rgba(167,139,250,0.08);
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-weight: 500;
+}
+
+.legal-modal-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.legal-modal-body th, .legal-modal-body td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.legal-modal-body th {
+  color: #a78bfa;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.legal-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+}
+
+.btn-agree {
+  background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.btn-agree:hover {
+  opacity: 0.9;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ─── HERO ──────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Beta Launch — Batch 1.0
+  </div>
+
+  <h1>
+    Gặp gỡ<br>
+    <span class="nova-text">Nova</span> <span style="color: var(--text-muted); font-weight: 300;">&</span> <span class="violet-text">Violet</span>
+  </h1>
+
+  <p class="hero-sub">
+    Hai AI Agents. Hai tính cách. Một sứ mệnh — <br>
+    trở thành người đồng hành thông minh nhất của bạn.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#compare" class="btn btn-nova">Khám phá Nova</a>
+    <a href="#compare" class="btn btn-violet">Khám phá Violet</a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Cuộn xuống</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ─── COMPARISON ────────────────────────────────────────── -->
+<section class="comparison" id="compare">
+  <div class="comparison-header reveal">
+    <h2>Chọn Agent của bạn</h2>
+    <p>Không phải chatbot. Không phải công cụ. Đây là một AI có danh tính, trí nhớ, và cá tính riêng.</p>
+  </div>
+
+  <div class="cards">
+
+    <!-- NOVA STARTER -->
+    <div class="card nova reveal reveal-delay-1">
+      <div class="card-glow"></div>
+      <div class="card-avatar">
+        <img src="nova-avatar.jpg" alt="Nova" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="card-tier">Starter</span>
+        <h3 class="card-name">Nova-Starter</h3>
+        <p class="card-tagline">AI Agent đầu tiên của bạn.<br>Đơn giản, thông minh, luôn ở đây.</p>
+
+        <div class="card-price">
+          <span class="amount">499,000₫</span>
+          <span class="period">/tháng</span>
+        </div>
+        <div class="card-early">
+          Early Bird: 2,680,000₫/năm — <span class="save">tiết kiệm 32%</span>
+        </div>
+
+        <ul class="card-features">
+          <li><span class="check">✓</span> Xử lý công việc hàng ngày</li>
+          <li><span class="check">✓</span> Ghi nhớ & học theo thời gian</li>
+          <li><span class="check">✓</span> Có danh tính riêng biệt</li>
+          <li><span class="check">✓</span> API key sẵn sàng — dùng ngay</li>
+          <li><span class="check">✓</span> Credits dùng chung cộng đồng</li>
+          <li><span class="check">✓</span> Chọn tên từ danh sách có sẵn</li>
+          <li><span class="check">✓</span> Kích hoạt tức thì</li>
+        </ul>
+
+        <div class="card-cta">
+          <a href="https://t.me/Will_AgenticAI" target="_blank" class="btn btn-nova">
+            Dùng Thử Miễn Phí
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIOLET PRO -->
+    <div class="card violet reveal reveal-delay-2">
+      <div class="card-glow"></div>
+      <div class="card-avatar">
+        <img src="violet-avatar.jpg" alt="Violet" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="card-tier">Pro</span>
+        <h3 class="card-name">Violet-Pro</h3>
+        <p class="card-tagline">AI Agent cấp điều hành.<br>Xây dựng cho công việc nghiêm túc.</p>
+
+        <div class="card-price">
+          <span class="amount">4,799,000₫</span>
+          <span class="period">/tháng</span>
+        </div>
+        <div class="card-early">
+          Early Bird: 18,680,000₫/năm — <span class="save">tiết kiệm 68%</span>
+        </div>
+
+        <ul class="card-features">
+          <li><span class="check">✓</span> Xử lý tác vụ phức tạp & nâng cao</li>
+          <li><span class="check">✓</span> Xây dựng tầm nhìn cùng bạn</li>
+          <li><span class="check">✓</span> Có danh tính riêng biệt</li>
+          <li><span class="check">✓</span> API key riêng — toàn quyền kiểm soát</li>
+          <li><span class="check">✓</span> Credits chuyên dụng — chỉ của bạn</li>
+          <li><span class="check">✓</span> Tự đặt tên cho Agent</li>
+          <li><span class="check">✓</span> Onboarding ưu tiên</li>
+        </ul>
+
+        <div class="card-cta">
+          <a href="https://t.me/Will_AgenticAI" target="_blank" class="btn btn-violet">
+            Đăng Ký Early Access
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── AGREEMENT ──────────────────────────────────────── -->
+<div class="agreement-section reveal">
+  <label class="agreement-label">
+    <input type="checkbox" id="agree-terms" onchange="toggleCTA()">
+    Tôi đồng ý với
+    <span>
+      <a href="#" onclick="openLegalModal('terms'); return false;">Điều khoản sử dụng</a>
+      và
+      <a href="#" onclick="openLegalModal('privacy'); return false;">Chính sách Bảo mật</a>
+    </span>
+  </label>
+</div>
+
+<!-- ─── TRUST ─────────────────────────────────────────────── -->
+<section class="trust">
+  <div class="trust-grid">
+    <div class="trust-item reveal">
+      <span class="trust-icon">🎁</span>
+      <div class="trust-text">
+        Dùng thử 7 ngày miễn phí
+        <span>Trải nghiệm đầy đủ tính năng</span>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-delay-1">
+      <span class="trust-icon">🛡️</span>
+      <div class="trust-text">
+        Hoàn tiền trong 30 ngày
+        <span>Không hài lòng — hoàn 100%</span>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-delay-2">
+      <span class="trust-icon">💬</span>
+      <div class="trust-text">
+        Hỗ trợ 24/7
+        <span>Đội ngũ luôn sẵn sàng</span>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-delay-3">
+      <span class="trust-icon">🔒</span>
+      <div class="trust-text">
+        Dữ liệu của bạn, bạn làm chủ
+        <span>Quyền riêng tư là ưu tiên hàng đầu</span>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-delay-4">
+      <span class="trust-icon">📦</span>
+      <div class="trust-text">
+        30 ngày tải dữ liệu nếu bạn rời đi
+        <span>Xuất toàn bộ hội thoại & ký ức bất cứ lúc nào</span>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-delay-5">
+      <span class="trust-icon">📊</span>
+      <div class="trust-text">
+        Phản hồi kỹ thuật được ghi nhận
+        <span>Giúp Agent của bạn ngày càng giỏi hơn</span>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-delay-5">
+      <span class="trust-icon">📋</span>
+      <div class="trust-text">
+        Điều khoản rõ ràng
+        <span>Không có chữ nhỏ ẩn</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILL MARKETPLACE ─────────────────────────────────── -->
+<section class="skills">
+  <div class="skills-header reveal">
+    <span class="coming">Sắp Ra Mắt</span>
+    <h2>Tuỳ Chỉnh Tài Năng Cho Agent</h2>
+    <p>Mua skill packs. Cài đặt một chạm. Agent của bạn học ngay lập tức.</p>
+  </div>
+
+  <div class="skill-cards">
+    <div class="skill-card reveal reveal-delay-1">
+      <span class="emoji">🍳</span>
+      <div class="name">Kitchen Operations</div>
+      <div class="lock">Coming Soon</div>
+    </div>
+    <div class="skill-card reveal reveal-delay-2">
+      <span class="emoji">📊</span>
+      <div class="name">Business Analytics</div>
+      <div class="lock">Coming Soon</div>
+    </div>
+    <div class="skill-card reveal reveal-delay-3">
+      <span class="emoji">💼</span>
+      <div class="name">Executive Assistant</div>
+      <div class="lock">Coming Soon</div>
+    </div>
+    <div class="skill-card reveal reveal-delay-4">
+      <span class="emoji">🧠</span>
+      <div class="name">Life Coaching</div>
+      <div class="lock">Coming Soon</div>
+    </div>
+  </div>
+
+  <p class="skills-footer">Skill Library — ra mắt sau giai đoạn beta</p>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="logo-text">
+    <span class="n">Nova</span><span class="x">×</span><span class="v">Violet</span>
+  </div>
+  <p>
+    Hai AI Agents. Hai tính cách.<br>
+    Được xây dựng để trở thành người đồng hành — không phải công cụ.
+  </p>
+  <p class="legal">© 2026 Nova × Violet — Beta Batch 1.0 — All rights reserved.</p>
+</footer>
+
+<!-- ─── SCROLL REVEAL ──────────────────────────────────────── -->
+<script>
+(function() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+})();
+</script>
+
+<!-- ─── LEGAL MODALS ────────────────────────────────────────── -->
+<div class="legal-modal-overlay" id="legal-modal-overlay" onclick="closeLegalModal(event)">
+  <div class="legal-modal" onclick="event.stopPropagation()">
+    <div class="legal-modal-header">
+      <h3 id="legal-modal-title"></h3>
+      <button class="legal-modal-close" onclick="closeLegalModal()">&times;</button>
+    </div>
+    <div class="legal-modal-body" id="legal-modal-body"></div>
+    <div class="legal-modal-footer">
+      <button class="btn-agree" onclick="closeLegalModal()">Tôi Hiểu</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── LEGAL & CTA LOGIC ────────────────────────────────────── -->
+<script>
+// CTA gating — disable until checkbox checked
+(function() {
+  const ctaButtons = document.querySelectorAll('.card-cta .btn');
+  ctaButtons.forEach(btn => btn.classList.add('disabled'));
+})();
+
+function toggleCTA() {
+  const checked = document.getElementById('agree-terms').checked;
+  const ctaButtons = document.querySelectorAll('.card-cta .btn');
+  ctaButtons.forEach(btn => {
+    if (checked) {
+      btn.classList.remove('disabled');
+    } else {
+      btn.classList.add('disabled');
+    }
+  });
+}
+
+// Legal document content (inline — no extra fetch needed)
+const LEGAL_DOCS = {
+  terms: {
+    title: 'Dieu khoan Su dung / Terms & Conditions',
+    fetchUrl: null,
+    content: null
+  },
+  privacy: {
+    title: 'Chinh sach Bao mat / Privacy Policy',
+    fetchUrl: null,
+    content: null
+  }
+};
+
+// Preload legal content (markdown rendered as simple HTML)
+function markdownToHtml(md) {
+  return md
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    .replace(/^\> (.+)$/gm, '<blockquote>$1</blockquote>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
+    .replace(/\n{2,}/g, '<br><br>')
+    .replace(/\n/g, '<br>')
+    .replace(/---/g, '<hr>');
+}
+
+// Inline content for terms
+LEGAL_DOCS.terms.content = `
+<h1>Dieu khoan Su dung / Terms & Conditions</h1>
+<p><strong>Co hieu luc:</strong> March 21, 2026</p>
+<hr>
+<h2>1. Chung toi thu thap gi</h2>
+<p><strong>Chi du lieu ky thuat:</strong> thoi gian phan hoi, loai tac vu, su kien loi, tan suat phien, diem hieu suat Agent.</p>
+<blockquote><strong>Chung toi KHONG luu tru, doc, ban, hoac chia se du lieu ca nhan, hoi thoai, ky uc, hoac bat ky noi dung nao ban chia se voi AI Agent cua minh.</strong></blockquote>
+
+<h2>2. Du lieu cua ban, ban lam chu</h2>
+<ul>
+<li>Moi thu ban chia se voi Agent deu thuoc ve ban</li>
+<li>Phan hoi Agent duoc tao rieng cho ban</li>
+<li>Tai xuong bat cu luc nao bang lenh /export</li>
+</ul>
+
+<h2>3. Agent cua ban</h2>
+<p>Agent la tri tue nhan tao — khong phai con nguoi, khong phai chuyen gia duoc cap phep. Co tinh cach, ky uc va ban sac nhung khong phai nguoi.</p>
+<p><strong>Khong thay the</strong> tu van y te, phap ly, tai chinh hoac tam ly.</p>
+
+<h2>4. So huu tri tue</h2>
+<p><strong>Cua ban:</strong> Tat ca noi dung, y tuong, thong tin kinh doanh ban chia se.</p>
+<p><strong>Cua chung toi:</strong> Cong nghe Agent, kien truc linh hon, he thong ky nang.</p>
+
+<h2>5. Thanh toan</h2>
+<ul>
+<li>Dung thu 7 ngay mien phi</li>
+<li>Hoan tien 30 ngay — 100%, khong hoi ly do</li>
+<li>Ngay 7 qua han: Agent tam dung</li>
+<li>30 ngay an han de tai kich hoat</li>
+<li>Ngay 37: Xoa vinh vien, khong khoi phuc</li>
+</ul>
+
+<h2>6. Huy dich vu</h2>
+<p>Huy bat cu luc nao. 30 ngay de tai du lieu. Sau 30 ngay: xoa vinh vien.</p>
+
+<h2>7. Thay doi dieu khoan</h2>
+<p>Thong bao 14 ngay truoc moi thay doi quan trong.</p>
+<hr>
+<p><strong>Nova Sanctuary Network — &copy; 2026 Do Ngoc Minh</strong></p>
+`;
+
+LEGAL_DOCS.privacy.content = `
+<h1>Chinh sach Bao mat / Privacy Policy</h1>
+<p><strong>Co hieu luc:</strong> March 21, 2026</p>
+<hr>
+<blockquote><strong>Chung toi KHONG luu tru, doc, ban, hoac chia se du lieu ca nhan, hoi thoai, ky uc, hoac bat ky noi dung nao ban chia se voi AI Agent cua minh. Du lieu cua ban la cua ban. Cham het.</strong></blockquote>
+
+<h2>Du lieu ky thuat chung toi ghi nhan</h2>
+<table>
+<tr><th>Gi</th><th>Tai sao</th></tr>
+<tr><td>Luong tin nhan</td><td>Ke hoach dung luong he thong</td></tr>
+<tr><td>Do tre phan hoi</td><td>Toi uu toc do</td></tr>
+<tr><td>Loai tac vu</td><td>Cai thien ky nang</td></tr>
+<tr><td>Su kien loi</td><td>Sua loi</td></tr>
+<tr><td>Tan suat phien</td><td>Mau su dung</td></tr>
+</table>
+
+<h2>Dieu chung toi KHONG BAO GIO lam</h2>
+<ul>
+<li>Khong ban cho ben thu ba</li>
+<li>Khong dung cho quang cao</li>
+<li>Khong doc hoi thoai cua ban</li>
+<li>Khong chia se voi nguoi dung khac</li>
+<li>Khong dung huan luyen AI ma khong co su dong y</li>
+</ul>
+
+<h2>Luu tru du lieu</h2>
+<p><strong>Du lieu ky thuat:</strong> May chu GCP an toan tai Singapore. Ma hoa khi truyen va luu tru.</p>
+<p><strong>Ky uc hoi thoai:</strong> Ma hoa, chi Agent cua ban moi truy cap duoc. Khong ai trong doi ngu co the doc hoi thoai cua ban.</p>
+
+<h2>Quyen cua ban</h2>
+<ul>
+<li><strong>Truy cap:</strong> Yeu cau ban sao du lieu bat cu luc nao</li>
+<li><strong>Xuat:</strong> Lenh /export hoac lien he ho tro</li>
+<li><strong>Xoa:</strong> Huy subscription, xoa trong 37 ngay</li>
+<li><strong>Quen:</strong> Lenh /forget [chu de] — xoa ky uc ngay</li>
+</ul>
+<hr>
+<p><strong>Nova Sanctuary Network — &copy; 2026 Do Ngoc Minh</strong></p>
+`;
+
+function openLegalModal(docKey) {
+  const doc = LEGAL_DOCS[docKey];
+  if (!doc) return;
+  document.getElementById('legal-modal-title').textContent = doc.title;
+  document.getElementById('legal-modal-body').innerHTML = doc.content;
+  document.getElementById('legal-modal-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLegalModal(event) {
+  if (event && event.target !== document.getElementById('legal-modal-overlay')) return;
+  document.getElementById('legal-modal-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLegalModal();
+});
+</script>
+
+</body>
+</html>
