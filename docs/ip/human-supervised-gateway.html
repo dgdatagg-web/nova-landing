@@ -1,69 +1,37 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Human-Supervised Gateway for Persistent AI — Project Nova</title><meta name="description" content="A supervision boundary for persistent agents: tools, sessions, permissions, audit trails, delivery, and recovery." /><link rel="canonical" href="https://project-nova.cloud/ip/human-supervised-gateway-for-persistent-ai.html" /><link rel="stylesheet" href="/styles.css" /></head>
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Human-Supervised Gateway for Persistent AI — Project Nova</title><meta name="description" content="A defensive publication note on human-supervised gateways for persistent AI agents: tool mediation, permission classes, audit trails, delivery control, and recovery support." /><link rel="canonical" href="https://project-nova.cloud/ip/human-supervised-gateway.html" /><link rel="stylesheet" href="/styles.css" /></head>
 <body>
-<header class="site-header"><a class="brand" href="/">Project Nova</a><nav><a href="/blog/">Journey</a><a href="/ip/">IP Notes</a><a href="/#method">Method</a></nav></header>
+<header class="site-header"><a class="brand" href="/">Project Nova</a><nav><a href="/ip/">IP Notes</a><a href="/blog/">Journey</a></nav></header>
 <main class="article">
 <a class="back-link" href="/ip/">← Back to IP notes</a>
-<p class="article-meta">April 28, 2026 · Defensive publication</p>
-<div class="panel">
+<p class="article-meta">April 28, 2026 · Defensive publication note 005</p>
 <h1>Human-Supervised Gateway for Persistent AI</h1>
-<h2>Summary</h2>
-<p>This draft establishes prior art around persistent agents operating behind a human-supervised gateway. It does not reveal gateway internals, tokens, session mechanics, edge cases, production routing, or security-sensitive deployment details.</p>
+<div class="notice"><strong>Public-safe abstraction:</strong> This note establishes prior art around persistent agents operating behind a human-supervised gateway. It does not reveal gateway internals, tokens, session mechanics, edge cases, production routing, or security-sensitive deployment details.</div>
 <h2>Thesis</h2>
 <p>Persistent AI systems need a gateway layer that separates observation, drafting, reversible action, external communication, and privileged operations.</p>
 <p>The gateway is not just an API proxy. It is a supervision boundary.</p>
-<h2>Core Pattern</h2>
+<h2>Core pattern</h2>
 <p>A human-supervised gateway can provide:</p>
-<ol>
-<li><strong>Identity-bound sessions</strong> — agents operate in controlled sessions.</li>
-<li><strong>Tool mediation</strong> — tools are declared and routed through the gateway.</li>
-<li><strong>Permission classes</strong> — different actions require different levels of approval.</li>
-<li><strong>Audit trail</strong> — actions and approvals are recorded.</li>
-<li><strong>Recovery support</strong> — agents can resume after interruption.</li>
-<li><strong>Delivery control</strong> — user-facing messages and external sends can be gated.</li>
-</ol>
-<h2>Permission Classes</h2>
-<p>A safe public model may include:</p>
 <ul>
-<li>read-only inspection,</li>
-<li>local draft creation,</li>
-<li>reversible local edits,</li>
-<li>external messages,</li>
-<li>financial or legal actions,</li>
-<li>destructive operations,</li>
-<li>privileged system changes.</li>
+<li><strong>Identity-bound sessions:</strong> agents operate in controlled sessions.</li>
+<li><strong>Tool mediation:</strong> tools are declared and routed through the gateway.</li>
+<li><strong>Permission classes:</strong> different actions require different levels of approval.</li>
+<li><strong>Audit trail:</strong> actions and approvals are recorded.</li>
+<li><strong>Recovery support:</strong> agents can resume after interruption.</li>
+<li><strong>Delivery control:</strong> user-facing messages and external sends can be gated.</li>
 </ul>
-<p>Each class can have its own approval rule.</p>
-<h2>Why This Matters</h2>
-<p>Without a gateway, persistent agents become either too weak to be useful or too risky to trust.</p>
-<p>A supervision gateway lets the system support autonomy while keeping humans in control of high-impact actions.</p>
-<h2>Defensive Claim</h2>
-<p>The category established here is:</p>
-<blockquote>
-<p>A human-supervised gateway for persistent AI agents that mediates tools, sessions, permission classes, audit trails, delivery control, and recovery support.</p>
-</blockquote>
-<h2>Boundaries</h2>
-<ul>
-<li>No gateway internals.</li>
-<li>No real endpoints.</li>
-<li>No payload formats.</li>
-<li>No auth mechanics.</li>
-<li>No token handling.</li>
-<li>No production session mechanics.</li>
-<li>No edge-case exploit notes.</li>
-<li>No deployment commands.</li>
-<li>No internal routing details.</li>
-</ul>
-<h2>Public Example</h2>
-<p>A safe toy example:</p>
-<blockquote>
+<h2>Permission classes</h2>
+<p>A safe public model may include read-only inspection, local draft creation, reversible local edits, external messages, financial or legal actions, destructive operations, and privileged system changes. Each class can have its own approval rule.</p>
+<h2>Why this matters</h2>
+<p>Without a gateway, persistent agents become either too weak to be useful or too risky to trust. A supervision gateway lets the system support autonomy while keeping humans in control of high-impact actions.</p>
+<div class="claim"><strong>Defensive claim:</strong> A human-supervised gateway for persistent AI agents can mediate tools, sessions, permission classes, audit trails, delivery control, and recovery support.</div>
+<h2>What this note intentionally does not reveal</h2>
+<ul><li>No gateway internals.</li><li>No real endpoints.</li><li>No payload formats.</li><li>No auth mechanics.</li><li>No token handling.</li><li>No production session mechanics.</li><li>No edge-case exploit notes.</li><li>No deployment commands.</li><li>No internal routing details.</li></ul>
+<h2>Safe toy example</h2>
 <p>An agent may summarize a local file without approval, draft a reply with approval required before sending, and refuse destructive file deletion unless explicitly confirmed.</p>
-</blockquote>
 <h2>Closing</h2>
 <p>Autonomy without supervision is unsafe. Supervision without continuity is weak. A human-supervised gateway is the runtime boundary that makes persistent agents practical.</p>
-</div>
 </main>
-<footer><p>Project Nova · Public notes on agent infrastructure, continuity, and human-supervised AI systems.</p></footer>
 </body>
 </html>
