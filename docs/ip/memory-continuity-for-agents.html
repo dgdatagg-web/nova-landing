@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Memory Continuity for Long-Running Agents — Project Nova</title><meta name="description" content="Why long-running agents need structured working-state continuity beyond raw transcript history." /><link rel="canonical" href="https://project-nova.cloud/ip/memory-continuity-for-long-running-agents.html" /><link rel="stylesheet" href="/styles.css" /></head>
+<body>
+<header class="site-header"><a class="brand" href="/">Project Nova</a><nav><a href="/blog/">Journey</a><a href="/ip/">IP Notes</a><a href="/#method">Method</a></nav></header>
+<main class="article">
+<a class="back-link" href="/ip/">← Back to IP notes</a>
+<p class="article-meta">April 28, 2026 · Defensive publication</p>
+<div class="panel">
+<h1>Memory Continuity for Long-Running Agents</h1>
+<h2>Summary</h2>
+<p>This draft establishes prior art around agent memory continuity at a category level. It does not reveal private memory files, identity doctrine, scars, relationship context, internal prompts, or production recovery rituals.</p>
+<h2>Thesis</h2>
+<p>Long-running agents need more than chat history.</p>
+<p>A useful agent must be able to preserve what it is doing, why it is doing it, what step comes next, what is blocked, and what has been completed but not yet reported.</p>
+<p>This is working-state continuity, distinct from long-term memory.</p>
+<h2>The Problem</h2>
+<p>Agent sessions are fragile. They can be interrupted by context compaction, model fallback, process restart, tool failure, network interruption, user reset, and long-running task boundaries.</p>
+<p>If the only record is a transcript, the next session must reconstruct intent from noisy history. That is slow, error-prone, and often incomplete.</p>
+<h2>Core Pattern</h2>
+<p>A continuity-aware agent runtime separates at least three layers:</p>
+<ol>
+<li><strong>Transcript history</strong> — what was said.</li>
+<li><strong>Long-term memory</strong> — durable facts, preferences, decisions, and lessons.</li>
+<li><strong>Current working state</strong> — the active objective, current step, next action, blockers, and unsurfaced results.</li>
+</ol>
+<p>The third layer is the key. It is short, structured, and overwritten as work changes.</p>
+<h2>Minimal Working-State Schema</h2>
+<p>A public-safe schema can include:</p>
+<pre><code>Objective: what the agent is trying to accomplish
+Current Step: what was last completed or is active now
+Key Decisions: current relevant decisions only
+Next Action: exactly what should happen next
+Blockers: what prevents progress
+Unsurfaced Results: completed outputs not yet shown to the user
+Last Updated: timestamp</code></pre>
+<p>This schema is intentionally generic. It does not require revealing private doctrine or user data.</p>
+<h2>Why This Matters</h2>
+<p>Working-state continuity enables recovery after interruption, safer handoffs, fewer repeated mistakes, clearer user trust, better long-running task execution, and reduced hallucination about prior work.</p>
+<h2>Defensive Claim</h2>
+<p>The category established here is:</p>
+<blockquote>
+<p>A memory continuity layer for long-running agents that separates transcript history, long-term memory, and overwrite-oriented current working state containing objective, current step, decisions, next action, blockers, and unsurfaced results.</p>
+</blockquote>
+<h2>Boundaries</h2>
+<ul>
+<li>No private memory files.</li>
+<li>No real user facts.</li>
+<li>No relationship histories.</li>
+<li>No identity/soul doctrine.</li>
+<li>No compaction scars.</li>
+<li>No internal recovery rituals.</li>
+<li>No production memory paths.</li>
+<li>No model routing doctrine.</li>
+</ul>
+<h2>Public Example</h2>
+<p>A safe toy example:</p>
+<blockquote>
+<p>A coding agent begins a refactor, writes a current-state checkpoint before running tests, gets interrupted, and later resumes from the checkpoint without rereading the entire conversation.</p>
+</blockquote>
+<h2>Closing</h2>
+<p>Agents that cannot remember what they are doing cannot be trusted with long-running work. Continuity is not a cosmetic feature. It is runtime infrastructure.</p>
+</div>
+</main>
+<footer><p>Project Nova · Public notes on agent infrastructure, continuity, and human-supervised AI systems.</p></footer>
+</body>
+</html>

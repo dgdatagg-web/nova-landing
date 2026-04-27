@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Skill Capsules for Operational Agents — Project Nova</title><meta name="description" content="Reusable operational procedures for agents: triggers, steps, tools, constraints, and verification." /><link rel="canonical" href="https://project-nova.cloud/ip/skill-capsules-for-operational-agents.html" /><link rel="stylesheet" href="/styles.css" /></head>
+<body>
+<header class="site-header"><a class="brand" href="/">Project Nova</a><nav><a href="/blog/">Journey</a><a href="/ip/">IP Notes</a><a href="/#method">Method</a></nav></header>
+<main class="article">
+<a class="back-link" href="/ip/">← Back to IP notes</a>
+<p class="article-meta">April 28, 2026 · Defensive publication</p>
+<div class="panel">
+<h1>Skill Capsules for Operational Agents</h1>
+<h2>Summary</h2>
+<p>This draft establishes prior art around reusable agent skills as operational capsules. It does not reveal private skills, customer workflows, production runbooks, internal prompts, or sensitive tool procedures.</p>
+<h2>Thesis</h2>
+<p>Agents need reusable operational knowledge, not just bigger prompts.</p>
+<p>A skill capsule packages a specific procedure so an agent knows when to use it, what constraints apply, what tools are relevant, and what safety rules must be followed.</p>
+<h2>The Problem</h2>
+<p>Without reusable skills, agent behavior becomes scattered across long system prompts, repeated user instructions, hidden conventions, ad hoc tool calls, and fragile memory.</p>
+<p>This makes behavior hard to audit, hard to improve, and hard to transfer between agents.</p>
+<h2>Core Pattern</h2>
+<p>A skill capsule can contain:</p>
+<ol>
+<li><strong>Trigger description</strong> — when the skill applies.</li>
+<li><strong>Purpose</strong> — what job the skill performs.</li>
+<li><strong>Procedure</strong> — the steps to follow.</li>
+<li><strong>Tool guidance</strong> — which tools are relevant and how to use them safely.</li>
+<li><strong>Constraints</strong> — what not to do.</li>
+<li><strong>Verification</strong> — how to know the work is complete.</li>
+<li><strong>Examples</strong> — safe public examples where appropriate.</li>
+</ol>
+<h2>Why Skill Capsules Matter</h2>
+<p>Skills turn operational experience into reusable infrastructure.</p>
+<p>They help agents act consistently, follow safety rules, avoid repeated mistakes, use tools correctly, onboard into new workflows faster, and improve without rewriting the entire system prompt.</p>
+<h2>Skills vs Prompts</h2>
+<p>A prompt tells an agent how to behave globally.</p>
+<p>A skill tells an agent how to perform a specific class of work.</p>
+<p>The distinction matters because skills can be versioned, reviewed, shared, tested, and selectively loaded.</p>
+<h2>Defensive Claim</h2>
+<p>The category established here is:</p>
+<blockquote>
+<p>A reusable skill capsule system for operational agents, where each skill defines triggers, procedure, tool guidance, constraints, and verification criteria for a specific class of work.</p>
+</blockquote>
+<h2>Boundaries</h2>
+<ul>
+<li>No private skill files.</li>
+<li>No partner workflows.</li>
+<li>No production deployment runbooks.</li>
+<li>No internal prompts.</li>
+<li>No security-sensitive procedures.</li>
+<li>No real customer examples.</li>
+<li>No private coordination internals.</li>
+<li>No private memory or identity doctrine.</li>
+</ul>
+<h2>Public Example</h2>
+<p>A safe toy example:</p>
+<blockquote>
+<p>A “summarize document” skill tells an agent when to summarize, how to extract key points, how to cite source sections, and how to avoid inventing facts.</p>
+</blockquote>
+<p>Another safe toy example:</p>
+<blockquote>
+<p>A “local test runner” skill tells a coding agent to inspect package metadata, run a project’s declared test command, read the output, and report failures without claiming success prematurely.</p>
+</blockquote>
+<h2>Closing</h2>
+<p>The next layer of agent reliability will come from operational packaging: procedures, safety rules, tool patterns, and verification criteria captured as reusable skills.</p>
+</div>
+</main>
+<footer><p>Project Nova · Public notes on agent infrastructure, continuity, and human-supervised AI systems.</p></footer>
+</body>
+</html>

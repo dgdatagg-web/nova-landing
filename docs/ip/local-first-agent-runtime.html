@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Local-First Agent Runtime — Project Nova</title><meta name="description" content="A defensive publication note on local-first agent runtimes: workspace context, declared tools, checkpoints, skills, recovery, and human approval gates." /><link rel="canonical" href="https://project-nova.cloud/ip/local-first-agent-runtime.html" /><link rel="stylesheet" href="/styles.css" /></head>
+<body>
+<header class="site-header"><a class="brand" href="/">Project Nova</a><nav><a href="/ip/">IP Notes</a><a href="/blog/">Journey</a></nav></header>
+<main class="article">
+<a class="back-link" href="/ip/">← Back to IP notes</a>
+<p class="article-meta">April 28, 2026 · Defensive publication note 001</p>
+<h1>Local-First Agent Runtime</h1>
+<div class="notice"><strong>Public-safe abstraction:</strong> This note establishes prior art around local-first agent runtimes without revealing private fleet topology, production deployment details, partner workflows, private memory, internal prompts, or backend coordination mechanics.</div>
+<h2>Thesis</h2>
+<p>Agent systems become more useful and resilient when the runtime lives close to the user's tools, files, preferences, and approval boundaries.</p>
+<p>A local-first agent runtime treats the user's workspace as the operational center. Instead of forcing every task through a remote black box, it gives agents controlled access to local context, explicit tools, durable checkpoints, and human supervision.</p>
+<h2>Core pattern</h2>
+<ul>
+<li><strong>Workspace context:</strong> files, notes, docs, and project state available under explicit user control.</li>
+<li><strong>Declared tools:</strong> actions mediated through visible tool interfaces rather than hidden ambient access.</li>
+<li><strong>Checkpointed state:</strong> active work state saved so interruption does not destroy continuity.</li>
+<li><strong>Human approval gates:</strong> sensitive actions require explicit confirmation.</li>
+<li><strong>Composable skills:</strong> operational procedures packaged and reused.</li>
+<li><strong>Session recovery:</strong> agents resume from structured state rather than relying only on raw chat history.</li>
+</ul>
+<h2>Why local-first matters</h2>
+<p>Remote-only agents often lose the thread when context changes, sessions compact, or tools fail. A local-first runtime keeps durable working state near the user's actual environment. This improves resilience, auditability, user control, recovery after interruption, integration with existing workflows, and privacy boundaries.</p>
+<h2>Human supervision as a runtime primitive</h2>
+<p>Human approval should not be bolted on after autonomy. It should be a first-class runtime feature. A well-designed runtime distinguishes safe read-only inspection, local draft creation, reversible edits, external sends, destructive operations, and privileged system changes. Each class can carry a different approval requirement.</p>
+<div class="claim"><strong>Defensive claim:</strong> A local-first runtime for agentic systems can combine workspace context, declared tools, checkpointed state, composable skills, session recovery, and human approval gates.</div>
+<h2>What this note intentionally does not reveal</h2>
+<ul><li>No production config.</li><li>No real fleet topology.</li><li>No private user data.</li><li>No internal prompts.</li><li>No backend coordination internals.</li><li>No deployment secrets.</li><li>No partner workflows.</li><li>No identity doctrine.</li></ul>
+<h2>Safe toy example</h2>
+<p>A user creates a local research agent that can read files in a sample folder, summarize a public document, save a checkpoint, and ask for approval before writing a report.</p>
+<h2>Closing</h2>
+<p>The future of agent infrastructure is not only smarter models. It is better runtimes: local context, explicit tools, durable continuity, and human control.</p>
+</main>
+</body>
+</html>
